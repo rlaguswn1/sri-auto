@@ -78,7 +78,7 @@ rec_nm=dvr.find_element(By.CSS_SELECTOR, '#title')
 # 월+일 4자로 보여주기 (ex. 0628)
 a=(str(datetime.today().month)+str(datetime.today().day)).zfill(4)
 rec_nm.clear()
-rec_nm.send_keys(str(a)+'사람인 테스트 공고입니다. 지원 불가합니다.')
+rec_nm.send_keys(str(a)+' 사람인 테스트 공고입니다. 지원 불가합니다.')
 
 # 템플릿 반영
 tem_apply=dvr.find_element(By.CSS_SELECTOR, '#template_insert')
@@ -88,3 +88,15 @@ tem_apply.click()
 submit = dvr.find_element(By.CSS_SELECTOR, '#content > div.wrap_recruit_frm > div.wrap_bottom_btn > button')
 submit.click()
 
+# 등록전 확인 레이어
+# 주의: find_element하면 웹엘리먼트로 나오지만 find_elements하면 값이 리스트로 나온다
+sel1 = dvr.find_elements(By.CLASS_NAME, 'salaryLawItem')
+for i in sel1:
+    i.send_keys(Keys.SPACE)
+
+next=dvr.find_element(By.CSS_SELECTOR, '#submitAfterSalaryLawCheck')
+next.click()
+
+time.sleep(2)
+fin = dvr.find_element(By.CSS_SELECTOR, '#btnRecruitComplete')
+fin.click()
